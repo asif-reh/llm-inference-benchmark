@@ -1,0 +1,43 @@
+# Offline pipeline demo. The mock backend simulates token timing with a
+# discrete-event clock. It does not call a model and it does not measure a GPU.
+# For a real client, use configs/example-hf.yaml (or the vLLM / TGI / transformers configs).
+schema_version: 1
+run_name: example-synthetic
+clock: virtual
+backend:
+  type: mock
+  model_id: synthetic/mock-7b
+  revision: null
+  injected_errors:
+    - phase: measure
+      concurrency: 4
+      batch_size: 1
+      ordinal: 3
+      error_type: backend
+      message: "injected backend error so the error table is not an empty state"
+    - phase: measure
+      concurrency: 8
+      batch_size: 1
+      ordinal: 5
+      error_type: timeout
+      message: "injected timeout so the error table is not an empty state"
+workload:
+  prompts: ../data/prompts/example.jsonl
+  concurrency: [1, 2, 4, 8]
+  batch_sizes: [1]
+  warmup: 4
+  samples: 40
+  max_tokens: 64
+  temperature: 0.0
+  seed: 42
+  timeout_s: 2
+output:
+  directory: ../results/example-synthetic
+  overwrite: true
+  run_id: example-synthetic
+  # Frozen so the checked-in fixture stays byte-stable. Real runs should omit this.
+  freeze_created_at: "2026-11-05T00:00:00Z"
+  include_output_text: false
+  also_copy_summary_to:
+    - ../space/data/example-synthetic.json
+    - ../gradio_space/data/example-synthetic.json

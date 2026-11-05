@@ -1,0 +1,27 @@
+# Template for the Hugging Face Inference API. This file is not a recorded result.
+# Replace model_id with a model your token can call. Export HF_TOKEN first.
+# Numbers from this run include network time, cold starts, and shared capacity.
+schema_version: 1
+run_name: hf-inference-api
+clock: wall
+backend:
+  type: huggingface
+  model_id: HuggingFaceTB/SmolLM2-1.7B-Instruct
+  revision: null
+  provider: hf-inference
+  mode: chat
+  token_env: HF_TOKEN
+workload:
+  prompts: ../data/prompts/example.jsonl
+  concurrency: [1, 2]
+  batch_sizes: [1]
+  warmup: 2
+  samples: 10
+  max_tokens: 64
+  temperature: 0.0
+  seed: 42
+  timeout_s: 120
+output:
+  directory: ../results/hf-inference-api
+  overwrite: true
+  include_output_text: true

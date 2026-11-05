@@ -1,0 +1,24 @@
+# REAL measurement: local CPU transformers, not the Inference API.
+# Model is small enough to run without paid inference credits.
+schema_version: 1
+run_name: local-cpu-smollm2-135m
+clock: wall
+backend:
+  type: transformers
+  model_id: HuggingFaceTB/SmolLM2-135M-Instruct
+  revision: main
+  base_url: http://127.0.0.1:18080
+workload:
+  prompts: ../data/prompts/example.jsonl
+  concurrency: [1, 2, 4]
+  batch_sizes: [1]
+  warmup: 2
+  samples: 8
+  max_tokens: 48
+  temperature: 0.0
+  seed: 42
+  timeout_s: 180
+output:
+  directory: ../results/local-cpu-smollm2-135m
+  overwrite: true
+  include_output_text: true

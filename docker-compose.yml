@@ -1,0 +1,48 @@
+# Default service: offline synthetic demo. No GPU, no API token.
+#
+#   docker compose up --build bench
+#
+# Local transformers server (downloads a model, CPU image is large):
+#
+#   docker compose --profile local up --build transformers
+#
+# Then point configs/example-transformers.yaml at http://127.0.0.1:18080
+# and run the client on the host, or:
+#
+#   docker compose run --rm bench run --config configs/example-transformers.yaml
+#
+# From inside the compose network the server name is `transformers`.
+# The checked-in transformers config uses 127.0.0.1 for a host-side server.
+
+services:
+  bench:
+    build:
+      context: .
+      target: bench
+    image: benchlab:local
+    volumes:
+      - ./results:/app/results
+      - ./space/data:/app/space/data
+      - ./gradio_space/data:/app/gradio_space/data
+    command: ["run", "--config", "configs/example.yaml"]
+
+  transformers:
+    profiles: ["local"]
+    build:
+      context: .
+      target: local
+    image: benchlab:local-transformers
+    ports:
+      - "18080:18080"
+    command:
+      - scripts/serve_transformers.py
+      - --model
+      - sshleifer/tiny-gpt2
+      - --revision
+      - main
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "18080"
+      - --device
+      - cpu

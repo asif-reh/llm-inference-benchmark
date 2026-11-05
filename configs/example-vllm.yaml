@@ -1,0 +1,26 @@
+# Thin client for a vLLM server you start yourself, for example:
+#   vllm serve <model> --revision <rev> --host 127.0.0.1 --port 18000
+# Batching is the server's --max-num-seqs, not this file. batch_sizes must be [1].
+schema_version: 1
+run_name: vllm-local
+clock: wall
+backend:
+  type: vllm
+  model_id: meta-llama/Llama-3.2-1B-Instruct
+  revision: null
+  base_url: http://127.0.0.1:18000
+  api_key_env: VLLM_API_KEY
+workload:
+  prompts: ../data/prompts/example.jsonl
+  concurrency: [1, 4, 8]
+  batch_sizes: [1]
+  warmup: 2
+  samples: 20
+  max_tokens: 128
+  temperature: 0.0
+  seed: 42
+  timeout_s: 120
+output:
+  directory: ../results/vllm-local
+  overwrite: true
+  include_output_text: true

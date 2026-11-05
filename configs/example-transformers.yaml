@@ -1,0 +1,25 @@
+# Point this at scripts/serve_transformers.py. The reference server serializes
+# generation; concurrency includes queueing on that lock. tiny-gpt2 is a smoke
+# test model, not a serving result you should publish as a quality comparison.
+schema_version: 1
+run_name: transformers-local
+clock: wall
+backend:
+  type: transformers
+  model_id: sshleifer/tiny-gpt2
+  revision: main
+  base_url: http://127.0.0.1:18080
+workload:
+  prompts: ../data/prompts/example.jsonl
+  concurrency: [1, 2]
+  batch_sizes: [1]
+  warmup: 1
+  samples: 4
+  max_tokens: 32
+  temperature: 0.0
+  seed: 42
+  timeout_s: 120
+output:
+  directory: ../results/transformers-local
+  overwrite: true
+  include_output_text: true

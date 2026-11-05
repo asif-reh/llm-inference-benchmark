@@ -1,0 +1,25 @@
+# Thin client for Text Generation Inference /generate_stream.
+#   text-generation-launcher --model-id <model> --revision <rev> --port 18001
+# The server's max batch tokens are not set here. batch_sizes must be [1].
+schema_version: 1
+run_name: tgi-local
+clock: wall
+backend:
+  type: tgi
+  model_id: HuggingFaceTB/SmolLM2-1.7B-Instruct
+  revision: null
+  base_url: http://127.0.0.1:18001
+workload:
+  prompts: ../data/prompts/example.jsonl
+  concurrency: [1, 4]
+  batch_sizes: [1]
+  warmup: 2
+  samples: 20
+  max_tokens: 128
+  temperature: 0.0
+  seed: 42
+  timeout_s: 120
+output:
+  directory: ../results/tgi-local
+  overwrite: true
+  include_output_text: true
