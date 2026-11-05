@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLM Inference Benchmark Lab</title>
+    <meta
+      name="description"
+      content="Client-observed latency and throughput from a real local CPU transformers streaming run. Synthetic mock data is optional."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <p class="eyebrow">LLM Inference Benchmark Lab</p>
+        <h1 id="run-title">Loading run</h1>
+        <p id="run-sub" class="sub">Reading <span class="mono">data/local-cpu-smollm2-135m.json</span>.</p>
+      </div>
+      <label class="file">
+        Load summary JSON
+        <input id="file-input" type="file" accept="application/json,.json" />
+      </label>
+    </header>
+
+    <p id="banner" class="banner" role="status">
+      SYNTHETIC EXAMPLE — NOT A REAL BENCHMARK. This page ships with mock-backend output so the
+      charts can be reviewed without a GPU or an API token.
+    </p>
+    <p id="status" class="status">Loading summary…</p>
+
+    <main>
+      <section class="kpis" id="kpis" aria-label="Run totals"></section>
+
+      <section class="card">
+        <h2>Configuration</h2>
+        <div class="table-wrap">
+          <table id="config-table">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="grid-2">
+        <article class="card">
+          <h2>TTFT by concurrency</h2>
+          <p class="hint">Client time to first streamed token. p50 and p95, warmup excluded.</p>
+          <canvas id="chart-ttft" class="chart" role="img" aria-label="TTFT p50 and p95 by concurrency"></canvas>
+        </article>
+        <article class="card">
+          <h2>Throughput vs concurrency</h2>
+          <p class="hint">Successful requests and output tokens, divided by the measurement window.</p>
+          <canvas id="chart-throughput" class="chart" role="img" aria-label="Throughput versus concurrency"></canvas>
+        </article>
+      </section>
+
+      <section class="card">
+        <div class="row">
+          <h2>End-to-end latency</h2>
+          <label>
+            Level
+            <select id="level-select"></select>
+          </label>
+        </div>
+        <div class="grid-2">
+          <div>
+            <h3>Histogram</h3>
+            <canvas id="chart-hist" class="chart" role="img" aria-label="End-to-end latency histogram"></canvas>
+          </div>
+          <div>
+            <h3>CDF</h3>
+            <canvas id="chart-cdf" class="chart" role="img" aria-label="End-to-end latency CDF"></canvas>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="latency-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>N</th>
+                <th>Mean</th>
+                <th>p50</th>
+                <th>p95</th>
+                <th>p99</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Errors</h2>
+        <p class="hint">Measured requests only. Warmup failures are listed in the methodology panel.</p>
+        <div class="table-wrap">
+          <table id="error-table">
+            <thead>
+              <tr>
+                <th>Request</th>
+                <th>Level</th>
+                <th>Prompt</th>
+                <th>Type</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" id="methodology">
+        <h2>Methodology</h2>
+        <div id="method-body"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Shaik Asif Ur Rehman · client-observed metrics · percentiles are Hyndman–Fan type 7.
+        Warmup is excluded. VRAM is omitted when the client cannot see the serving device.
+      </p>
+    </footer>
+    <noscript>
+      <p class="banner">SYNTHETIC EXAMPLE — NOT A REAL BENCHMARK. Enable JavaScript to draw the charts.</p>
+    </noscript>
+    <script src="app.js"></script>
+  </body>
+</html>

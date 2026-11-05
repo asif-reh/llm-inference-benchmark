@@ -1,0 +1,4 @@
+concurrency,batch_size,n_measured,n_ok,n_errors,n_timeouts,error_rate,ttft_p50_ms,ttft_p95_ms,itl_mean_ms,itl_p50_ms,itl_p95_ms,e2e_p50_ms,e2e_p95_ms,e2e_p99_ms,output_tokens,output_tokens_per_sec,requests_per_sec,mean_decode_tokens_per_sec,measurement_window_s
+1,1,8,8,0,0,0.0,111.234,146.714,34.726,22.663,91.042,1141.35,1235.001,1270.208,246,26.7584,0.8702,28.6848,9.19336
+2,1,8,8,0,0,0.0,1096.657,1184.092,29.181,20.798,64.325,1626.477,2162.84,2172.118,216,31.8662,1.1802,36.3476,6.778336
+4,1,8,8,0,0,0.0,3465.428,3717.808,34.228,21.495,102.811,4514.576,4741.607,4746.672,246,27.2383,0.8858,29.0587,9.0314
