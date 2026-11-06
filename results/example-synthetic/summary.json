@@ -1,0 +1,1035 @@
+{
+  "notice": "SYNTHETIC EXAMPLE \u2014 NOT A REAL BENCHMARK",
+  "schema_version": 1,
+  "meta": {
+    "run_id": "example-synthetic",
+    "run_name": "example-synthetic",
+    "created_at": "2026-11-05T00:00:00Z",
+    "created_at_is_frozen": true,
+    "package_version": "0.1.0",
+    "synthetic": true,
+    "seed": 42,
+    "clock": "virtual",
+    "clock_origin": "run_start",
+    "warmup_excluded_from_stats": true,
+    "percentile_method": "hyndman_fan_type7",
+    "closed_loop": true,
+    "backend": "mock",
+    "model_id": "synthetic/mock-7b",
+    "revision": null
+  },
+  "config": {
+    "schema_version": 1,
+    "run_name": "example-synthetic",
+    "clock": "virtual",
+    "backend": {
+      "type": "mock",
+      "model_id": "synthetic/mock-7b",
+      "revision": null,
+      "injected_errors": [
+        {
+          "phase": "measure",
+          "concurrency": 4,
+          "batch_size": 1,
+          "ordinal": 3,
+          "error_type": "backend",
+          "message": "injected backend error so the error table is not an empty state"
+        },
+        {
+          "phase": "measure",
+          "concurrency": 8,
+          "batch_size": 1,
+          "ordinal": 5,
+          "error_type": "timeout",
+          "message": "injected timeout so the error table is not an empty state"
+        }
+      ]
+    },
+    "workload": {
+      "prompts": "../data/prompts/example.jsonl",
+      "concurrency": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "batch_sizes": [
+        1
+      ],
+      "warmup": 4,
+      "samples": 40,
+      "max_tokens": 64,
+      "temperature": 0.0,
+      "seed": 42,
+      "timeout_s": 2.0
+    },
+    "output": {
+      "directory": "../results/example-synthetic",
+      "overwrite": true,
+      "run_id": "example-synthetic",
+      "freeze_created_at": "2026-11-05T00:00:00Z",
+      "include_output_text": false,
+      "also_copy_summary_to": [
+        "../space/data/example-synthetic.json",
+        "../gradio_space/data/example-synthetic.json"
+      ]
+    }
+  },
+  "prompts": {
+    "path": "../data/prompts/example.jsonl",
+    "count": 20,
+    "sha256": "340a9c8f46c35be77b78c541e394d4bdcaa67751fa52f22d8578341328749249"
+  },
+  "hardware": {
+    "measurable": false,
+    "peak_allocated_mb": null,
+    "instantaneous_used_mb": null,
+    "source": null,
+    "note": "Mock backend does not execute a model. VRAM is not applicable."
+  },
+  "warnings": [
+    "SYNTHETIC EXAMPLE \u2014 NOT A REAL BENCHMARK. Token arrival times come from a discrete-event model, not from a server.",
+    "The mock latency model ignores temperature and prompt semantics.",
+    "concurrency=1 batch=1: p99 is reported for completeness and is not stable at N=40.",
+    "concurrency=2 batch=1: p99 is reported for completeness and is not stable at N=40.",
+    "concurrency=4 batch=1: p99 is reported for completeness and is not stable at N=39.",
+    "concurrency=8 batch=1: p99 is reported for completeness and is not stable at N=39."
+  ],
+  "limitations": [
+    "SYNTHETIC EXAMPLE \u2014 NOT A REAL BENCHMARK. The mock backend simulates token arrival with a discrete-event clock. It does not run a model and it does not measure a GPU.",
+    "Figures are client-observed. Remote backends include network time.",
+    "Tail percentiles with small N describe this sample. They are not a stable service-level objective.",
+    "Output tokens are streamed pieces as delivered, not retokenized with a local tokenizer.",
+    "Warmup requests are stored in requests.jsonl and excluded from summary statistics.",
+    "Load is closed-loop: at most `concurrency` requests are in flight. This is not an open-loop arrival process."
+  ],
+  "levels": [
+    {
+      "concurrency": 1,
+      "batch_size": 1,
+      "n_measured": 40,
+      "n_warmup_excluded": 4,
+      "n_warmup_errors": 0,
+      "n_ok": 40,
+      "n_errors": 0,
+      "n_timeouts": 0,
+      "error_rate": 0.0,
+      "output_tokens_total": 1610,
+      "output_tokens_mean": 40.25,
+      "measurement_window_s": 17.189109,
+      "requests_per_sec": 2.3271,
+      "output_tokens_per_sec": 93.664,
+      "mean_decode_tokens_per_sec": 99.9327,
+      "n_decode_samples": 40,
+      "ttft_ms": {
+        "n": 40,
+        "mean": 37.283,
+        "p50": 37.328,
+        "p95": 39.795,
+        "min": 34.102,
+        "max": 40.206
+      },
+      "itl_ms": {
+        "n": 1570,
+        "mean": 9.999,
+        "p50": 9.983,
+        "p95": 10.684
+      },
+      "e2e_ms": {
+        "n": 40,
+        "mean": 429.728,
+        "p50": 452.795,
+        "p95": 597.888,
+        "p99": 606.099,
+        "min": 186.71,
+        "max": 610.61
+      },
+      "e2e_histogram": {
+        "bin_edges_ms": [
+          186.71,
+          247.267,
+          307.824,
+          368.381,
+          428.939,
+          489.496,
+          550.053,
+          610.61
+        ],
+        "counts": [
+          7,
+          3,
+          2,
+          8,
+          1,
+          10,
+          9
+        ]
+      },
+      "e2e_cdf": [
+        {
+          "e2e_ms": 186.71,
+          "fraction": 0.025
+        },
+        {
+          "e2e_ms": 187.091,
+          "fraction": 0.05
+        },
+        {
+          "e2e_ms": 202.943,
+          "fraction": 0.075
+        },
+        {
+          "e2e_ms": 216.12,
+          "fraction": 0.1
+        },
+        {
+          "e2e_ms": 217.121,
+          "fraction": 0.125
+        },
+        {
+          "e2e_ms": 237.916,
+          "fraction": 0.15
+        },
+        {
+          "e2e_ms": 239.188,
+          "fraction": 0.175
+        },
+        {
+          "e2e_ms": 257.04,
+          "fraction": 0.2
+        },
+        {
+          "e2e_ms": 257.503,
+          "fraction": 0.225
+        },
+        {
+          "e2e_ms": 264.942,
+          "fraction": 0.25
+        },
+        {
+          "e2e_ms": 357.713,
+          "fraction": 0.275
+        },
+        {
+          "e2e_ms": 362.236,
+          "fraction": 0.3
+        },
+        {
+          "e2e_ms": 369.126,
+          "fraction": 0.325
+        },
+        {
+          "e2e_ms": 374.087,
+          "fraction": 0.35
+        },
+        {
+          "e2e_ms": 378.734,
+          "fraction": 0.375
+        },
+        {
+          "e2e_ms": 406.701,
+          "fraction": 0.4
+        },
+        {
+          "e2e_ms": 407.403,
+          "fraction": 0.425
+        },
+        {
+          "e2e_ms": 412.011,
+          "fraction": 0.45
+        },
+        {
+          "e2e_ms": 418.593,
+          "fraction": 0.475
+        },
+        {
+          "e2e_ms": 421.168,
+          "fraction": 0.5
+        },
+        {
+          "e2e_ms": 484.422,
+          "fraction": 0.525
+        },
+        {
+          "e2e_ms": 507.172,
+          "fraction": 0.55
+        },
+        {
+          "e2e_ms": 508.505,
+          "fraction": 0.575
+        },
+        {
+          "e2e_ms": 518.487,
+          "fraction": 0.6
+        },
+        {
+          "e2e_ms": 529.902,
+          "fraction": 0.625
+        },
+        {
+          "e2e_ms": 533.589,
+          "fraction": 0.65
+        },
+        {
+          "e2e_ms": 533.71,
+          "fraction": 0.675
+        },
+        {
+          "e2e_ms": 535.314,
+          "fraction": 0.7
+        },
+        {
+          "e2e_ms": 535.718,
+          "fraction": 0.725
+        },
+        {
+          "e2e_ms": 537.113,
+          "fraction": 0.75
+        },
+        {
+          "e2e_ms": 547.337,
+          "fraction": 0.775
+        },
+        {
+          "e2e_ms": 553.793,
+          "fraction": 0.8
+        },
+        {
+          "e2e_ms": 559.322,
+          "fraction": 0.825
+        },
+        {
+          "e2e_ms": 571.503,
+          "fraction": 0.85
+        },
+        {
+          "e2e_ms": 578.516,
+          "fraction": 0.875
+        },
+        {
+          "e2e_ms": 586.036,
+          "fraction": 0.9
+        },
+        {
+          "e2e_ms": 586.843,
+          "fraction": 0.925
+        },
+        {
+          "e2e_ms": 597.827,
+          "fraction": 0.95
+        },
+        {
+          "e2e_ms": 599.044,
+          "fraction": 0.975
+        },
+        {
+          "e2e_ms": 610.61,
+          "fraction": 1.0
+        }
+      ]
+    },
+    {
+      "concurrency": 2,
+      "batch_size": 1,
+      "n_measured": 40,
+      "n_warmup_excluded": 4,
+      "n_warmup_errors": 0,
+      "n_ok": 40,
+      "n_errors": 0,
+      "n_timeouts": 0,
+      "error_rate": 0.0,
+      "output_tokens_total": 1582,
+      "output_tokens_mean": 39.55,
+      "measurement_window_s": 8.750325,
+      "requests_per_sec": 4.5713,
+      "output_tokens_per_sec": 180.7933,
+      "mean_decode_tokens_per_sec": 97.3656,
+      "n_decode_samples": 40,
+      "ttft_ms": {
+        "n": 40,
+        "mean": 40.875,
+        "p50": 40.882,
+        "p95": 43.568,
+        "min": 37.845,
+        "max": 44.052
+      },
+      "itl_ms": {
+        "n": 1542,
+        "mean": 10.263,
+        "p50": 10.268,
+        "p95": 10.931
+      },
+      "e2e_ms": {
+        "n": 40,
+        "mean": 436.504,
+        "p50": 459.441,
+        "p95": 625.235,
+        "p99": 640.977,
+        "min": 191.54,
+        "max": 645.727
+      },
+      "e2e_histogram": {
+        "bin_edges_ms": [
+          191.54,
+          256.424,
+          321.308,
+          386.192,
+          451.075,
+          515.959,
+          580.843,
+          645.727
+        ],
+        "counts": [
+          8,
+          2,
+          4,
+          6,
+          5,
+          9,
+          6
+        ]
+      },
+      "e2e_cdf": [
+        {
+          "e2e_ms": 191.54,
+          "fraction": 0.025
+        },
+        {
+          "e2e_ms": 193.083,
+          "fraction": 0.05
+        },
+        {
+          "e2e_ms": 196.002,
+          "fraction": 0.075
+        },
+        {
+          "e2e_ms": 214.477,
+          "fraction": 0.1
+        },
+        {
+          "e2e_ms": 217.69,
+          "fraction": 0.125
+        },
+        {
+          "e2e_ms": 224.16,
+          "fraction": 0.15
+        },
+        {
+          "e2e_ms": 233.486,
+          "fraction": 0.175
+        },
+        {
+          "e2e_ms": 243.803,
+          "fraction": 0.2
+        },
+        {
+          "e2e_ms": 257.039,
+          "fraction": 0.225
+        },
+        {
+          "e2e_ms": 265.27,
+          "fraction": 0.25
+        },
+        {
+          "e2e_ms": 358.754,
+          "fraction": 0.275
+        },
+        {
+          "e2e_ms": 367.443,
+          "fraction": 0.3
+        },
+        {
+          "e2e_ms": 377.963,
+          "fraction": 0.325
+        },
+        {
+          "e2e_ms": 379.886,
+          "fraction": 0.35
+        },
+        {
+          "e2e_ms": 408.402,
+          "fraction": 0.375
+        },
+        {
+          "e2e_ms": 414.856,
+          "fraction": 0.4
+        },
+        {
+          "e2e_ms": 428.367,
+          "fraction": 0.425
+        },
+        {
+          "e2e_ms": 431.992,
+          "fraction": 0.45
+        },
+        {
+          "e2e_ms": 437.473,
+          "fraction": 0.475
+        },
+        {
+          "e2e_ms": 439.609,
+          "fraction": 0.5
+        },
+        {
+          "e2e_ms": 479.273,
+          "fraction": 0.525
+        },
+        {
+          "e2e_ms": 484.151,
+          "fraction": 0.55
+        },
+        {
+          "e2e_ms": 493.025,
+          "fraction": 0.575
+        },
+        {
+          "e2e_ms": 512.836,
+          "fraction": 0.6
+        },
+        {
+          "e2e_ms": 515.237,
+          "fraction": 0.625
+        },
+        {
+          "e2e_ms": 519.209,
+          "fraction": 0.65
+        },
+        {
+          "e2e_ms": 535.033,
+          "fraction": 0.675
+        },
+        {
+          "e2e_ms": 535.245,
+          "fraction": 0.7
+        },
+        {
+          "e2e_ms": 553.006,
+          "fraction": 0.725
+        },
+        {
+          "e2e_ms": 561.151,
+          "fraction": 0.75
+        },
+        {
+          "e2e_ms": 563.232,
+          "fraction": 0.775
+        },
+        {
+          "e2e_ms": 567.059,
+          "fraction": 0.8
+        },
+        {
+          "e2e_ms": 570.749,
+          "fraction": 0.825
+        },
+        {
+          "e2e_ms": 579.182,
+          "fraction": 0.85
+        },
+        {
+          "e2e_ms": 585.368,
+          "fraction": 0.875
+        },
+        {
+          "e2e_ms": 608.719,
+          "fraction": 0.9
+        },
+        {
+          "e2e_ms": 612.323,
+          "fraction": 0.925
+        },
+        {
+          "e2e_ms": 624.797,
+          "fraction": 0.95
+        },
+        {
+          "e2e_ms": 633.547,
+          "fraction": 0.975
+        },
+        {
+          "e2e_ms": 645.727,
+          "fraction": 1.0
+        }
+      ]
+    },
+    {
+      "concurrency": 4,
+      "batch_size": 1,
+      "n_measured": 40,
+      "n_warmup_excluded": 4,
+      "n_warmup_errors": 0,
+      "n_ok": 39,
+      "n_errors": 1,
+      "n_timeouts": 0,
+      "error_rate": 0.025,
+      "output_tokens_total": 1569,
+      "output_tokens_mean": 40.231,
+      "measurement_window_s": 4.840266,
+      "requests_per_sec": 8.0574,
+      "output_tokens_per_sec": 324.1557,
+      "mean_decode_tokens_per_sec": 93.0946,
+      "n_decode_samples": 39,
+      "ttft_ms": {
+        "n": 39,
+        "mean": 47.96,
+        "p50": 47.899,
+        "p95": 50.298,
+        "min": 44.657,
+        "max": 51.215
+      },
+      "itl_ms": {
+        "n": 1530,
+        "mean": 10.746,
+        "p50": 10.742,
+        "p95": 11.428
+      },
+      "e2e_ms": {
+        "n": 39,
+        "mean": 469.533,
+        "p50": 470.617,
+        "p95": 671.313,
+        "p99": 677.725,
+        "min": 208.355,
+        "max": 681.145
+      },
+      "e2e_histogram": {
+        "bin_edges_ms": [
+          208.355,
+          275.896,
+          343.438,
+          410.979,
+          478.521,
+          546.062,
+          613.604,
+          681.145
+        ],
+        "counts": [
+          8,
+          2,
+          1,
+          9,
+          5,
+          6,
+          8
+        ]
+      },
+      "e2e_cdf": [
+        {
+          "e2e_ms": 208.355,
+          "fraction": 0.025641
+        },
+        {
+          "e2e_ms": 218.53,
+          "fraction": 0.051282
+        },
+        {
+          "e2e_ms": 227.165,
+          "fraction": 0.076923
+        },
+        {
+          "e2e_ms": 239.883,
+          "fraction": 0.102564
+        },
+        {
+          "e2e_ms": 241.053,
+          "fraction": 0.128205
+        },
+        {
+          "e2e_ms": 250.359,
+          "fraction": 0.153846
+        },
+        {
+          "e2e_ms": 257.424,
+          "fraction": 0.179487
+        },
+        {
+          "e2e_ms": 272.25,
+          "fraction": 0.205128
+        },
+        {
+          "e2e_ms": 295.47,
+          "fraction": 0.230769
+        },
+        {
+          "e2e_ms": 296.13,
+          "fraction": 0.25641
+        },
+        {
+          "e2e_ms": 394.348,
+          "fraction": 0.282051
+        },
+        {
+          "e2e_ms": 422.274,
+          "fraction": 0.307692
+        },
+        {
+          "e2e_ms": 429.308,
+          "fraction": 0.333333
+        },
+        {
+          "e2e_ms": 432.059,
+          "fraction": 0.358974
+        },
+        {
+          "e2e_ms": 434.431,
+          "fraction": 0.384615
+        },
+        {
+          "e2e_ms": 439.411,
+          "fraction": 0.410256
+        },
+        {
+          "e2e_ms": 465.334,
+          "fraction": 0.435897
+        },
+        {
+          "e2e_ms": 468.166,
+          "fraction": 0.461538
+        },
+        {
+          "e2e_ms": 470.036,
+          "fraction": 0.487179
+        },
+        {
+          "e2e_ms": 470.617,
+          "fraction": 0.512821
+        },
+        {
+          "e2e_ms": 507.518,
+          "fraction": 0.538462
+        },
+        {
+          "e2e_ms": 526.676,
+          "fraction": 0.564103
+        },
+        {
+          "e2e_ms": 541.686,
+          "fraction": 0.589744
+        },
+        {
+          "e2e_ms": 542.145,
+          "fraction": 0.615385
+        },
+        {
+          "e2e_ms": 545.409,
+          "fraction": 0.641026
+        },
+        {
+          "e2e_ms": 551.465,
+          "fraction": 0.666667
+        },
+        {
+          "e2e_ms": 566.347,
+          "fraction": 0.692308
+        },
+        {
+          "e2e_ms": 570.54,
+          "fraction": 0.717949
+        },
+        {
+          "e2e_ms": 572.485,
+          "fraction": 0.74359
+        },
+        {
+          "e2e_ms": 594.32,
+          "fraction": 0.769231
+        },
+        {
+          "e2e_ms": 597.391,
+          "fraction": 0.794872
+        },
+        {
+          "e2e_ms": 631.525,
+          "fraction": 0.820513
+        },
+        {
+          "e2e_ms": 637.248,
+          "fraction": 0.846154
+        },
+        {
+          "e2e_ms": 648.938,
+          "fraction": 0.871795
+        },
+        {
+          "e2e_ms": 653.747,
+          "fraction": 0.897436
+        },
+        {
+          "e2e_ms": 667.238,
+          "fraction": 0.923077
+        },
+        {
+          "e2e_ms": 671.221,
+          "fraction": 0.948718
+        },
+        {
+          "e2e_ms": 672.145,
+          "fraction": 0.974359
+        },
+        {
+          "e2e_ms": 681.145,
+          "fraction": 1.0
+        }
+      ]
+    },
+    {
+      "concurrency": 8,
+      "batch_size": 1,
+      "n_measured": 40,
+      "n_warmup_excluded": 4,
+      "n_warmup_errors": 0,
+      "n_ok": 39,
+      "n_errors": 1,
+      "n_timeouts": 1,
+      "error_rate": 0.025,
+      "output_tokens_total": 1556,
+      "output_tokens_mean": 39.897,
+      "measurement_window_s": 3.051418,
+      "requests_per_sec": 12.7809,
+      "output_tokens_per_sec": 509.9269,
+      "mean_decode_tokens_per_sec": 85.1834,
+      "n_decode_samples": 39,
+      "ttft_ms": {
+        "n": 39,
+        "mean": 61.896,
+        "p50": 61.719,
+        "p95": 64.265,
+        "min": 58.945,
+        "max": 64.85
+      },
+      "itl_ms": {
+        "n": 1517,
+        "mean": 11.739,
+        "p50": 11.735,
+        "p95": 12.419
+      },
+      "e2e_ms": {
+        "n": 39,
+        "mean": 518.527,
+        "p50": 523.293,
+        "p95": 749.876,
+        "p99": 755.151,
+        "min": 238.995,
+        "max": 757.08
+      },
+      "e2e_histogram": {
+        "bin_edges_ms": [
+          238.995,
+          313.007,
+          387.019,
+          461.031,
+          535.044,
+          609.056,
+          683.068,
+          757.08
+        ],
+        "counts": [
+          7,
+          3,
+          4,
+          6,
+          7,
+          3,
+          9
+        ]
+      },
+      "e2e_cdf": [
+        {
+          "e2e_ms": 238.995,
+          "fraction": 0.025641
+        },
+        {
+          "e2e_ms": 250.043,
+          "fraction": 0.051282
+        },
+        {
+          "e2e_ms": 262.745,
+          "fraction": 0.076923
+        },
+        {
+          "e2e_ms": 271.853,
+          "fraction": 0.102564
+        },
+        {
+          "e2e_ms": 283.481,
+          "fraction": 0.128205
+        },
+        {
+          "e2e_ms": 306.745,
+          "fraction": 0.153846
+        },
+        {
+          "e2e_ms": 309.893,
+          "fraction": 0.179487
+        },
+        {
+          "e2e_ms": 316.81,
+          "fraction": 0.205128
+        },
+        {
+          "e2e_ms": 320.495,
+          "fraction": 0.230769
+        },
+        {
+          "e2e_ms": 330.061,
+          "fraction": 0.25641
+        },
+        {
+          "e2e_ms": 425.971,
+          "fraction": 0.282051
+        },
+        {
+          "e2e_ms": 444.343,
+          "fraction": 0.307692
+        },
+        {
+          "e2e_ms": 448.392,
+          "fraction": 0.333333
+        },
+        {
+          "e2e_ms": 452.89,
+          "fraction": 0.358974
+        },
+        {
+          "e2e_ms": 469.185,
+          "fraction": 0.384615
+        },
+        {
+          "e2e_ms": 503.126,
+          "fraction": 0.410256
+        },
+        {
+          "e2e_ms": 504.94,
+          "fraction": 0.435897
+        },
+        {
+          "e2e_ms": 508.199,
+          "fraction": 0.461538
+        },
+        {
+          "e2e_ms": 518.056,
+          "fraction": 0.487179
+        },
+        {
+          "e2e_ms": 523.293,
+          "fraction": 0.512821
+        },
+        {
+          "e2e_ms": 564.82,
+          "fraction": 0.538462
+        },
+        {
+          "e2e_ms": 567.933,
+          "fraction": 0.564103
+        },
+        {
+          "e2e_ms": 570.543,
+          "fraction": 0.589744
+        },
+        {
+          "e2e_ms": 570.724,
+          "fraction": 0.615385
+        },
+        {
+          "e2e_ms": 591.815,
+          "fraction": 0.641026
+        },
+        {
+          "e2e_ms": 591.953,
+          "fraction": 0.666667
+        },
+        {
+          "e2e_ms": 596.311,
+          "fraction": 0.692308
+        },
+        {
+          "e2e_ms": 636.444,
+          "fraction": 0.717949
+        },
+        {
+          "e2e_ms": 663.014,
+          "fraction": 0.74359
+        },
+        {
+          "e2e_ms": 665.981,
+          "fraction": 0.769231
+        },
+        {
+          "e2e_ms": 693.093,
+          "fraction": 0.794872
+        },
+        {
+          "e2e_ms": 695.156,
+          "fraction": 0.820513
+        },
+        {
+          "e2e_ms": 703.987,
+          "fraction": 0.846154
+        },
+        {
+          "e2e_ms": 706.325,
+          "fraction": 0.871795
+        },
+        {
+          "e2e_ms": 723.942,
+          "fraction": 0.897436
+        },
+        {
+          "e2e_ms": 732.268,
+          "fraction": 0.923077
+        },
+        {
+          "e2e_ms": 749.64,
+          "fraction": 0.948718
+        },
+        {
+          "e2e_ms": 752.003,
+          "fraction": 0.974359
+        },
+        {
+          "e2e_ms": 757.08,
+          "fraction": 1.0
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "request_id": "c4-b1-m003",
+      "phase": "measure",
+      "ordinal": 3,
+      "concurrency": 4,
+      "batch_size": 1,
+      "prompt_ids": [
+        "reason-02"
+      ],
+      "error_type": "backend",
+      "message": "injected backend error so the error table is not an empty state"
+    },
+    {
+      "request_id": "c8-b1-m005",
+      "phase": "measure",
+      "ordinal": 5,
+      "concurrency": 8,
+      "batch_size": 1,
+      "prompt_ids": [
+        "ctx-01"
+      ],
+      "error_type": "timeout",
+      "message": "injected timeout so the error table is not an empty state"
+    }
+  ],
+  "warmup_errors": [],
+  "definitions": {
+    "ttft_ms": "Time from request issue to the first streamed token, observed by this client. The clock starts after a concurrency slot is acquired.",
+    "itl_ms": "Gaps between consecutive streamed tokens, pooled across successful measured requests. The first token is TTFT and is not an inter-token gap. Requests with one token contribute no inter-token samples.",
+    "e2e_ms": "Time from request issue until the client observes stream completion, including the last token.",
+    "requests_per_sec": "Successful measured requests divided by the measurement window in seconds. Failed requests are excluded from the numerator and included in the window when they occupied a concurrency slot.",
+    "output_tokens_per_sec": "Streamed token pieces from successful measured requests, divided by the measurement window in seconds.",
+    "mean_decode_tokens_per_sec": "Mean, over successful requests with at least two tokens, of (output_tokens - 1) / (time from the first token to the last token).",
+    "measurement_window_s": "On the run clock, earliest measured request issue to latest measured request finish at that concurrency level. Warmup is outside the window. The load pattern is closed-loop: at most `concurrency` requests are in flight, and a new request starts when a slot frees. Client-side queue delay is not part of latency. Queueing inside the server still appears in TTFT.",
+    "output_tokens": "Count of non-empty streamed pieces delivered to the client. This follows the provider's stream tokenization and is not a local retokenization.",
+    "error_rate": "Failed measured requests, including timeouts, divided by measured requests issued. Warmup failures are stored and reported separately and are not in this rate.",
+    "percentile_method": "Hyndman-Fan type 7: linear interpolation between the two nearest ranks. This matches NumPy's default percentile. With a small N, p95 and p99 describe this sample only."
+  }
+}
